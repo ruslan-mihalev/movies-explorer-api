@@ -59,7 +59,7 @@ const POST_MOVIE = celebrate({
 
 const DELETE_MOVIE = celebrate({
   [Segments.PARAMS]: Joi.object().keys({
-    movieId: Joi.string().required().custom(createObjectIdValidator('_id')),
+    _id: Joi.string().required().custom(createObjectIdValidator('_id')),
   }),
 });
 
