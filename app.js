@@ -7,6 +7,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { errorsHandler } = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { POST_SIGNUP, POST_SIGNIN } = require('./utils/validators');
+const { register, login, logout } = require('./controllers/users');
 
 const { PORT = 3000, MONGO_DB } = process.env;
 mongoose.connect(MONGO_DB);
@@ -31,9 +33,9 @@ app.use(requestLogger);
 // For pre-flight requests
 app.options('*', cors());
 
-// app.post('/signup', , ); // TODO
-// app.post('/signin', , ); // TODO
-// app.get('signout', logout)/ // TODO
+app.post('/signup', POST_SIGNUP, register);
+app.post('/signin', POST_SIGNIN, login);
+app.get('/signout', logout);
 app.use(cookieParser()); // TODO
 // app.use(auth); // TODO
 // app.use(router); // TODO

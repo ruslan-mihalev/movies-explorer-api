@@ -63,3 +63,12 @@ const DELETE_MOVIE = celebrate({
     movieId: Joi.string().required().custom(createObjectIdValidator('_id')),
   }),
 });
+
+module.exports = {
+  IMAGE_URL_REGEX,
+  POST_SIGNIN,
+  POST_SIGNUP,
+  PATCH_USER_ME,
+  POST_MOVIE,
+  DELETE_MOVIE,
+};
