@@ -7,7 +7,7 @@ const DEFAULT_MESSAGE_FOR_HTTP_CODE_INTERNAL_SERVER_ERROR = 'На сервере
 
 const WRONG_EMAIL_OR_PASSWORD = 'Неправильные email или пароль';
 const USER_WITH_EMAIL_ALREADY_EXISTS = 'Пользователь с таким email уже зарегистрирован';
-const ATTEMPT_TO_DELETE_CARD_FOR_ANOTHER_USER = 'Можно удалять только собственные посты';
+const ATTEMPT_TO_DELETE_MOVIE_FOR_ANOTHER_USER = 'Можно удалять только собственные сохраненные фильмы';
 
 module.exports = {
   DEFAULT_MESSAGE_FOR_HTTP_CODE_BAD_REQUEST,
@@ -19,5 +19,5 @@ module.exports = {
 
   WRONG_EMAIL_OR_PASSWORD,
   USER_WITH_EMAIL_ALREADY_EXISTS,
-  ATTEMPT_TO_DELETE_CARD_FOR_ANOTHER_USER,
+  ATTEMPT_TO_DELETE_MOVIE_FOR_ANOTHER_USER,
 };
