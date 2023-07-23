@@ -9,6 +9,7 @@ const { errorsHandler } = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { POST_SIGNUP, POST_SIGNIN } = require('./utils/validators');
 const { register, login, logout } = require('./controllers/users');
+const router = require('./routes');
 
 const { PORT = 3000, MONGO_DB } = process.env;
 mongoose.connect(MONGO_DB);
@@ -36,12 +37,12 @@ app.options('*', cors());
 app.post('/signup', POST_SIGNUP, register);
 app.post('/signin', POST_SIGNIN, login);
 app.get('/signout', logout);
-app.use(cookieParser()); // TODO
-// app.use(auth); // TODO
-// app.use(router); // TODO
-app.use(errorLogger); // TODO
-app.use(errors()); // TODO
-app.use(errorsHandler); // TODO
+app.use(cookieParser());
+app.use(auth);
+app.use(router);
+app.use(errorLogger);
+app.use(errors());
+app.use(errorsHandler);
 
 app.listen(PORT, () => {
   console.log(`Server on port ${PORT} started...`);
