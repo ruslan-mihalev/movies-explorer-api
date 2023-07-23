@@ -61,7 +61,7 @@ module.exports.register = (req, res, next) => {
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
-  const { userId } = req.params;
+  const { _id: userId } = req.user;
 
   User.findById(userId)
     .orFail()
