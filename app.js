@@ -2,9 +2,11 @@ require('dotenv').config();
 const cors = require('cors');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-// const helmet = require('helmet'); // TODO
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const express = require('express');
 const mongoose = require('mongoose');
+const auth = require('./middlewares/auth');
 const { errorsHandler } = require('./middlewares/errors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { POST_SIGNUP, POST_SIGNIN } = require('./utils/validators');
@@ -15,6 +17,15 @@ const { PORT = 3000, MONGO_DB } = process.env;
 mongoose.connect(MONGO_DB);
 
 const app = express();
+
+app.use(helmet());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit of requests
+});
+
+app.use(limiter);
 
 const corsOptions = {
   origin: [
