@@ -17,16 +17,19 @@ const corsOptions = {
   origin: [
     /^https?:\/\/localhost:\d{4}$/,
     /^https?:\/\/127\.0\.0\.1:\d{4}$/,
+    /^https?:\/\/api\.kinopoisk\.nomoredomains\.xyz$/,
   ],
   credentials: true,
 };
+// for simple cors requests
 app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use(requestLogger); // TODO
+app.use(requestLogger);
 
-// app.options('*', cors());
+// For pre-flight requests
+app.options('*', cors());
 
 // app.post('/signup', , ); // TODO
 // app.post('/signin', , ); // TODO
