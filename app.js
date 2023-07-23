@@ -13,7 +13,7 @@ const { POST_SIGNUP, POST_SIGNIN } = require('./utils/validators');
 const { register, login, logout } = require('./controllers/users');
 const router = require('./routes');
 
-const { PORT = 3000, MONGO_DB } = process.env;
+const { PORT = 3000, MONGO_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 mongoose.connect(MONGO_DB);
 
 const app = express();
