@@ -5,7 +5,9 @@ const { HTTP_CODE_CREATED } = require('../utils/httpCodes');
 const { ATTEMPT_TO_DELETE_MOVIE_FOR_ANOTHER_USER } = require('../utils/errorMessages');
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  const { _id: userId } = req.user;
+
+  Movie.find({ owner: userId })
     .populate('owner')
     .then((movies) => {
       res.send(movies);
