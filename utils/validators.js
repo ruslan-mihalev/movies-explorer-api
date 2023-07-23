@@ -51,7 +51,6 @@ const POST_MOVIE = celebrate({
     image: Joi.string().required().regex(IMAGE_URL_REGEX),
     trailerLink: Joi.string().required().regex(IMAGE_URL_REGEX),
     thumbnail: Joi.string().required().regex(IMAGE_URL_REGEX),
-    owner: Joi.string().required().custom(createObjectIdValidator('owner._id')),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),

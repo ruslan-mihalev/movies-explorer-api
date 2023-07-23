@@ -42,6 +42,9 @@ module.exports.createMovie = (req, res, next) => {
     nameEN,
     owner: req.user._id,
   })
+    .then(async (movie) => {
+      return movie.populate('owner');
+    })
     .then((movie) => {
       res.status(HTTP_CODE_CREATED).send(movie);
     })
