@@ -13,7 +13,14 @@ const { POST_SIGNUP, POST_SIGNIN } = require('./utils/validators');
 const { register, login, logout } = require('./controllers/users');
 const router = require('./routes');
 
-const { PORT = 3000, MONGO_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+const {
+  DEV_PORT,
+  DEV_MONGO_DB,
+  REQUESTS_RATE_LIMIT_WINDOW,
+  REQUESTS_LIMIT,
+} = require('./utils/config');
+
+const { PORT = DEV_PORT, MONGO_DB = DEV_MONGO_DB } = process.env;
 mongoose.connect(MONGO_DB);
 
 const app = express();
@@ -21,8 +28,8 @@ const app = express();
 app.use(helmet());
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit of requests
+  windowMs: REQUESTS_RATE_LIMIT_WINDOW,
+  max: REQUESTS_LIMIT,
 });
 
 app.use(limiter);

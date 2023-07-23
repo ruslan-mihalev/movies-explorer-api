@@ -9,17 +9,25 @@ const { HTTP_CODE_CREATED } = require('../utils/httpCodes');
 
 const { WRONG_EMAIL_OR_PASSWORD, USER_WITH_EMAIL_ALREADY_EXISTS } = require('../utils/errorMessages');
 
+const {
+  DEV_JWT_SECRET,
+  JWT_COOKIE_MAX_AGE,
+  JWT_COOKIE_NAME,
+  JWT_COOKIE_HTTP_ONLY,
+  PROD_NODE_ENV,
+} = require('../utils/config');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
-const MILLISECONDS_IN_WEEK = 7 * 24 * 60 * 60 * 1000;
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const secret = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
+      const secret = NODE_ENV === PROD_NODE_ENV ? JWT_SECRET : DEV_JWT_SECRET;
       const token = jwt.sign({ _id: user._id }, secret, { expiresIn: '7d' });
-      res.cookie('jwt', token, { maxAge: MILLISECONDS_IN_WEEK, httpOnly: true })
+      const cookieOptions = { maxAge: JWT_COOKIE_MAX_AGE, httpOnly: JWT_COOKIE_HTTP_ONLY };
+      res.cookie(JWT_COOKIE_NAME, token, cookieOptions)
         .send({ email })
         .end();
     })
@@ -33,7 +41,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res) => {
-  res.clearCookie('jwt')
+  res.clearCookie(JWT_COOKIE_NAME)
     .send({})
     .end();
 };
