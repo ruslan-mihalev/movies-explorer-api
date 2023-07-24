@@ -29,9 +29,7 @@ app.use(rateLimit);
 
 const corsOptions = {
   origin: [
-    /^https?:\/\/localhost:\d{4}$/,
-    /^https?:\/\/127\.0\.0\.1:\d{4}$/,
-    /^https?:\/\/api\.kinopoisk\.nomoredomains\.xyz$/,
+    /^https?:\/\/kinopoisk\.nomoredomains\.xyz$/,
   ],
   credentials: true,
 };
